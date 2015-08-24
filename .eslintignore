@@ -1,0 +1,7 @@
+public/
+scss/
+*.log
+*.json
+*.sh
+*.md
+LICENSE
