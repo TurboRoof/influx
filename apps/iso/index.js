@@ -1,6 +1,6 @@
 'use strict';
 
-import readLine from 'readLine';
+import readLine from 'readline';
 import DiceMode from './constants/DiceMode';
 import BoardFactory from './factories/BoardFactory';
 import CompanyFactory from './factories/CompanyFactory';
@@ -24,8 +24,9 @@ rl.prompt();
 
 rl.on('line', function(line) {
     switch(line.trim()) {
-        case 'hello':
-            //console.log('!');
+        case 'roll':
+            const n = Game.utils.rollDice();
+            console.log(n);
             break;
         default:
             //console.log('Say what? I might have heard `' + line.trim() + '`');

@@ -19,28 +19,29 @@ function terminateGame(company) {
     // - change gameStatus to game over
 }
 
-function rollDice(employee) {
+function rollDice() {
  // - random roll 1-6
  // - update employeeIndex
  // - update month
  // - update year
  // - increase cash if passes over paycheck
  // - run the event that matches the index randomly picking a sub-event
+    return Math.ceil(Math.random() * 6);
 }
 
 export default function (board, company, employee) {
     return {
         setInitialize() {
-            setInitialize();
+            return setInitialize();
         },
         startGame() {
-            startGame();
+            return startGame();
         },
         terminateGame() {
-            terminateGame(company);
+            return terminateGame(company);
         },
         rollDice() {
-            rollDice(employee, board);
+            return rollDice();
         },
     };
 }
