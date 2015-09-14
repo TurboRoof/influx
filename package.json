@@ -6,7 +6,7 @@
   "scripts": {
     "css": "node-sass scss/app.scss public/css/app.css",
     "lint": "eslint * --quiet",
-    "test": "for i in $(ls apps/iso/tests/); do babel-node \"./apps/iso/tests/${i}\" | faucet ; done",
+    "test": "for i in $(ls app/tests/); do babel-node \"./app/tests/${i}\" | faucet ; done",
     "validate": "npm run lint; npm run test && npm outdated --depth 0"
   },
   "repository": {
