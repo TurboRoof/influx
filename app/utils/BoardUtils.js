@@ -104,44 +104,30 @@ function offerJob(company, employee) {
 
 export default function (company, employee) {
     return {
-        changeSales () {
-            return changeSales(company);
-        },
-        acquiHire () {
-            return acquiHire(company, employee);
-        },
-        ipo() {
-            return ipo(company, employee);
-        },
-        bankrupt() {
-            return bankrupt(company, employee);
-        },
-        vcFunding() {
-            return vcFunding(company);
-        },
-        bankLoan() {
-            return bankLoan(company);
-        },
-        promoted() {
-            return promoted(employee);
-        },
-        fired() {
-            return fired(employee);
-        },
-        payoutProfit() {
-            return payoutProfit(employee);
-        },
-        splitStock() {
-            return splitStock(company, employee);
-        },
-        purchaseStock() {
-            return purchaseStock(employee);
-        },
-        payCheck() {
-            return payCheck(employee);
-        },
-        offerJob() {
-            return offerJob(company, employee);
-        },
+        changeSales () { return changeSales(company); },
+
+        acquiHire () { return acquiHire(company, employee); },
+
+        ipo() { return ipo(company, employee); },
+
+        bankrupt() { return bankrupt(company, employee); },
+
+        vcFunding() { return vcFunding(company); },
+
+        bankLoan() { return bankLoan(company); },
+
+        promoted() { return promoted(employee); },
+
+        fired() { return fired(employee); },
+
+        payoutProfit() { return payoutProfit(employee); },
+
+        splitStock() { return splitStock(company, employee); },
+
+        purchaseStock() { return purchaseStock(employee); },
+
+        payCheck() { return payCheck(employee); },
+
+        offerJob() { return offerJob(company, employee); },
     };
 }

@@ -7,13 +7,10 @@ import GameUtils from '../utils/GameUtils';
  * @param company
  * @param employee
  * @param slots - 24 slots with events and sub events
- * @param diceNum - dice max number
- * @param diceMode - diceRollMode: type to roll, click to roll
  * @param status - gameStatus: initializing, active, terminated
  * @returns {{props: Map}}
  */
-export default function (company, employee, slots,
-                         diceNum, diceMode) {
+export default function (company, employee, slots) {
 
     const a = BoardUtils(company, employee); // actions
 
@@ -45,10 +42,9 @@ export default function (company, employee, slots,
     ];
 
     const board = new Map([
+        ['activeSlot', 0],
+        ['month', 0],
         ['slots', slots],
-        ['diceNum', diceNum],
-        ['diceMode', diceMode],
-        ['months', 12],
     ]);
 
     return {

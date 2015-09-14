@@ -2,13 +2,9 @@
 
 import GameUtils from '../utils/GameUtils';
 
-export default function (board, company, employee, status) {
+export default function (board, company, employee) {
 
     const utils = GameUtils(board, company, employee); // actions
-
-    const game = new Map([
-        ['status', status],
-    ]);
 
     return {
         utils,
