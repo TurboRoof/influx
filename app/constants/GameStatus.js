@@ -1,11 +1,9 @@
 'use strict';
 
-import keyMirror from 'keymirror';
-
-const GameStatus = keyMirror({
-    INITIALIZE: null,
-    PLAYING: null,
-    GAME_OVER: null,
-});
+const GameStatus = {
+    INITIALIZE: Symbol,
+    PLAYING: Symbol,
+    GAME_OVER: Symbol,
+};
 
 export default GameStatus;

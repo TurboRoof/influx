@@ -1,6 +1,8 @@
 'use strict';
 
+/* global process */
 import readLine from 'readline';
+import {Contents, Menu} from './constants/Contents';
 import DiceMode from './constants/DiceMode';
 import BoardFactory from './factories/BoardFactory';
 import CompanyFactory from './factories/CompanyFactory';
@@ -17,23 +19,37 @@ const Game = GameFactory(Board, Company, Employee,
 
 const rl = readLine.createInterface(process.stdin, process.stdout);
 
-rl.setPrompt('ISO> ');
-rl.prompt();
+console.log(Contents.startingMessage);
 
-//console.log('Starting game Incentive Stock Options!');
+rl.setPrompt('player1> ');
+
+rl.prompt();
 
 rl.on('line', function(line) {
     switch(line.trim()) {
+        case 'exit':
+            console.log(Contents.exitMessage);
+            process.exit(0);
+            break;
+        case 'menu':
+            console.log(Menu);
+            break;
         case 'roll':
             const n = Game.utils.rollDice();
             console.log(n);
             break;
+        case 'settings':
+            console.log('show settings');
+            break;
+        case 'stats':
+            console.log('show cash and equity');
+            break;
         default:
-            //console.log('Say what? I might have heard `' + line.trim() + '`');
+            console.log(Contents.commandNotFound);
             break;
     }
     rl.prompt();
 }).on('close', function() {
-    //console.log('Have a great day!');
+    console.log(Contents.exitMessage);
     process.exit(0);
 });
