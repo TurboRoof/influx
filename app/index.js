@@ -38,9 +38,19 @@ rl.on('line', function(line) {
             console.log(Menu);
             break;
         case 'roll':
-            const {prompt, diceNum} = Game.utils.moveDate();
+            const {prompt, diceNum, newIndex} = Game.utils.moveDate();
+
             console.log(`Rolled ${diceNum}`);
+
+            console.log(newIndex);
+
+            // pick card from stack and run it.
+            Game.utils.pickCardFromStack(
+              Board.actions[newIndex]
+            )();
+
             rl.setPrompt(prompt);
+
             break;
         case 'settings':
             console.log(Company.actions.getSettings());

@@ -1,17 +1,43 @@
 'use strict';
 
-function getSettings(company) {
-    let settings = '';
+function getSettings(settings) {
+    let report = '';
 
-    company.forEach((value, key) => {
-        settings = settings.concat(`${key}: ${value}\n`);
+    settings.forEach((value, key) => {
+        report = report.concat(`${key}: ${value}\n`);
     });
 
-    return settings;
+    return report;
 }
 
-export default function (company) {
+function calcSales(sales, direction, delta) {
+    return sales + (direction * delta);
+}
+
+function calcDirection() {
+    return Math.random() > 0.5 ? 1 : -1;
+}
+
+function calcRandomDelta(sales, max) {
+    const maxSales = sales * max;
+
+    return Math.floor(maxSales * Math.random());
+}
+
+function updateSales(settings) {
+    const sales = settings.get('revenue');
+    const direction = calcDirection();
+    const delta = calcRandomDelta(sales, 0.3);
+
+    settings.set('revenue', calcSales(sales, direction, delta));
+}
+
+export default function (settings) {
     return {
-        getSettings () { return getSettings(company); },
+        calcDirection,
+        calcRandomDelta,
+        calcSales,
+        getSettings () { return getSettings(settings); },
+        updateSales () { return updateSales(settings); },
     };
 }

@@ -25,6 +25,12 @@ function calculateNewSlot(slots, activeSlot, diceNum) {
     };
 }
 
+function pickCardFromStack(stack) {
+    const cardIndex = Math.floor(Math.random() * stack.length);
+
+    return stack[cardIndex];
+}
+
 // - update month
 // - update year
 // - increase cash if passes over paycheck
@@ -46,6 +52,7 @@ function moveDate(board) {
     return {
         prompt: `slot: ${newIndex} / month: ${month}>`,
         diceNum,
+        newIndex,
     };
 }
 
@@ -54,5 +61,6 @@ export default function (Board, Company, Employee) {
         calculateNewSlot,
         rollDice,
         moveDate() { return moveDate(Board.board); },
+        pickCardFromStack,
     };
 }

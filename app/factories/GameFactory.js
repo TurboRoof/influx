@@ -2,9 +2,9 @@
 
 import GameUtils from '../utils/GameUtils';
 
-export default function (board, company, employee) {
+export default function (Board, Company, Employee) {
 
-    const utils = GameUtils(board, company, employee); // actions
+    const utils = GameUtils(Board, Company, Employee); // actions
 
     return {
         utils,

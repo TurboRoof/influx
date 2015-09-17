@@ -2,9 +2,9 @@
 
 import CompanyUtils from '../utils/CompanyUtils.js';
 
-export default function Company(totalShares, employeePool,
+export default function(totalShares, employeePool,
                                 sharePrice, revenue, expenses) {
-    const company = new Map([
+    const settings = new Map([
         ['totalShares', totalShares],
         ['employeePool', employeePool],
         ['sharePrice', sharePrice],
@@ -12,10 +12,10 @@ export default function Company(totalShares, employeePool,
         ['expenses', expenses],
     ]);
 
-    const actions = CompanyUtils(company);
+    const actions = CompanyUtils(settings);
 
     return {
         actions,
-        company,
+        settings,
     };
 }

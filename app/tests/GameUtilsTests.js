@@ -24,3 +24,23 @@ test('calculateNewSlot', (assert) => {
 
     assert.end();
 });
+
+test('pickCardFromStack(stack)', (assert) => {
+    let stack = [
+        function() {return 'card';},
+        function() {return 'card';},
+        function() {return 'card';},
+    ];
+
+    const expected = 'card';
+
+    assert.deepEqual(Utils.pickCardFromStack(stack)(), expected,
+        'should get one of the three.');
+
+    stack = [ function() {return 'card';} ];
+
+    assert.deepEqual(Utils.pickCardFromStack(stack)(), expected,
+        'Should work when only one card.');
+
+    assert.end();
+});
