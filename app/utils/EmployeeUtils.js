@@ -1,17 +1,41 @@
 'use strict';
 
-function getStats(employee) {
-    let stats = '';
+function getStats(account) {
+    let financialStatement = '';
 
-    employee.forEach((value, key) => {
-        stats = stats.concat(`${key}: ${value}\n`);
+    account.forEach((value, key) => {
+        financialStatement = financialStatement.concat(`${key}: ${value}\n`);
     });
 
-    return stats;
+    return financialStatement;
 }
 
-export default function (employee) {
+/**
+ * Paychecks every 2-week periods
+ * @param income
+ * @param taxes
+ * @returns {number}
+ */
+function calcPayCheck(income, taxes) {
+    const afterTaxes = income * ( 1 - taxes);
+
+    return afterTaxes / 24;
+}
+
+/**
+ * increase cash by 1/24 of income
+ * @param account
+ */
+function payCheck(account) {
+    const income = account.get('income');
+    const taxes = account.get('taxes');
+    account.set('cash', calcPayCheck(income, taxes));
+}
+
+export default function (account) {
     return {
-        getStats () { return getStats(employee); },
+        calcPayCheck,
+        payCheck () { return payCheck(account); },
+        getStats () { return getStats(account); },
     };
 }

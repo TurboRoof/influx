@@ -10,12 +10,13 @@ import EmployeeUtils from '../utils/EmployeeUtils';
  * @param vesting
  * @param expiration
  * @param income - is annual and should be after taxes and personal expenses
+ * @taxes taxes and benefits discounted on each paycheck
  * @returns {Map}
  * @constructor
  */
 export default function (iso, cash, cliff, vesting, expiration,
-                         income) {
-    const employee = new Map([
+                         income, taxes) {
+    const account = new Map([
         ['iso', iso],
         ['earnedStockOptions', 0],
         ['cliff', cliff],
@@ -23,12 +24,13 @@ export default function (iso, cash, cliff, vesting, expiration,
         ['expiration', expiration],
         ['income', income],
         ['cash', cash],
+        ['taxes', taxes],
     ]);
 
-    const actions = EmployeeUtils(employee);
+    const actions = EmployeeUtils(account);
 
     return {
         actions,
-        employee,
+        account,
     };
 }

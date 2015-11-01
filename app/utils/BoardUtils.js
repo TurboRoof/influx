@@ -10,12 +10,12 @@ changeSales()
  */
 /**
  * Change company's sales up or down by a percentage
- * @param company
+ * @param Company
  */
-function changeSales(company) {
+function changeSales(Company) {
     console.log('changeSales');
-    company.actions.updateSales();
-    console.log(company.actions.getSettings());
+    Company.actions.updateSales();
+    console.log(Company.actions.getSettings());
 }
 
 /*
@@ -105,9 +105,10 @@ function purchaseStock(employee) {
 [2X]
 payCheck()
  */
-function payCheck(employee) {
-    // - increase cash by 1/12 of income
+function payCheck(Employee) {
     console.log('payCheck');
+    Employee.actions.payCheck();
+    console.log(Employee.actions.getStats());
 }
 
 /*
@@ -120,32 +121,32 @@ function offerJob(company, employee) {
     console.log('offerJob');
 }
 
-export default function (company, employee) {
+export default function (Company, Employee) {
     return {
-        changeSales () { return changeSales(company); },
+        changeSales () { return changeSales(Company); },
 
-        acquiHire () { return acquiHire(company, employee); },
+        acquiHire () { return acquiHire(Company, Employee); },
 
-        ipo() { return ipo(company, employee); },
+        ipo() { return ipo(Company, Employee); },
 
-        bankrupt() { return bankrupt(company, employee); },
+        bankrupt() { return bankrupt(Company, Employee); },
 
-        vcFunding() { return vcFunding(company); },
+        vcFunding() { return vcFunding(Company); },
 
-        bankLoan() { return bankLoan(company); },
+        bankLoan() { return bankLoan(Company); },
 
-        promoted() { return promoted(employee); },
+        promoted() { return promoted(Employee); },
 
-        fired() { return fired(employee); },
+        fired() { return fired(Employee); },
 
-        payoutProfit() { return payoutProfit(employee); },
+        payoutProfit() { return payoutProfit(Employee); },
 
-        splitStock() { return splitStock(company, employee); },
+        splitStock() { return splitStock(Company, Employee); },
 
-        purchaseStock() { return purchaseStock(employee); },
+        purchaseStock() { return purchaseStock(Employee); },
 
-        payCheck() { return payCheck(employee); },
+        payCheck() { return payCheck(Employee); },
 
-        offerJob() { return offerJob(company, employee); },
+        offerJob() { return offerJob(Company, Employee); },
     };
 }
