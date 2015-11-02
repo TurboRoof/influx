@@ -16,7 +16,7 @@ import GameStatus from './constants/GameStatus';
 
 // Initialize
 const Company = CompanyFactory(6e6, .2, 4, 30e6, 25e6);
-const Employee = EmployeeFactory(5e3, 1e3, 1, 4, 10, 80e3);
+const Employee = EmployeeFactory(5e3, 1e3, 1, 4, 10, 60e3, 0);
 const Board = BoardFactory(Company, Employee, 24);
 const Game = GameFactory(Board, Company, Employee);
 
@@ -31,18 +31,24 @@ rl.prompt();
 rl.on('line', function(line) {
     switch(line.trim()) {
         case 'exit':
+
             console.log(Contents.exitMessage);
+
             process.exit(0);
             break;
+
         case 'menu':
+
             console.log(Menu);
             break;
+
         case 'roll':
+
             const {prompt, diceNum, newIndex} = Game.utils.moveDate();
 
             console.log(`Rolled ${diceNum}`);
 
-            console.log(newIndex);
+            console.log(`Index ${newIndex} out of 24`);
 
             // pick card from stack and run it.
             Game.utils.pickCardFromStack(
@@ -52,18 +58,25 @@ rl.on('line', function(line) {
             rl.setPrompt(prompt);
 
             break;
-        case 'settings':
-            console.log(Company.actions.getSettings());
+
+        case 'cStats':
+            console.log(Company.actions.getCompanyStats());
             break;
-        case 'stats':
+
+        case 'eStats':
             console.log(Employee.actions.getStats());
             break;
+
         default:
             console.log(Contents.commandNotFound);
             break;
     }
+
     rl.prompt();
+
 }).on('close', function() {
+
     console.log(Contents.exitMessage);
+
     process.exit(0);
 });

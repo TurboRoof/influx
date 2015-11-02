@@ -1,16 +1,20 @@
 'use strict';
 
-function getSettings(settings) {
+function getCompanyStats(stats) {
+
     let report = '';
 
-    settings.forEach((value, key) => {
+    stats.forEach((value, key) => {
+
         report = report.concat(`${key}: ${value}\n`);
+
     });
 
     return report;
 }
 
 function calcSales(sales, direction, delta) {
+
     return sales + (direction * delta);
 }
 
@@ -18,26 +22,56 @@ function calcDirection() {
     return Math.random() > 0.5 ? 1 : -1;
 }
 
+function updateExpenses(stats, factor) {
+
+    const expenses = stats.get('expenses') + factor;
+
+    stats.set('expenses', expenses);
+}
+
 function calcRandomDelta(sales, max) {
+
     const maxSales = sales * max;
 
     return Math.floor(maxSales * Math.random());
 }
 
-function updateSales(settings) {
-    const sales = settings.get('revenue');
-    const direction = calcDirection();
-    const delta = calcRandomDelta(sales, 0.3);
+function updatePricePerShare(stats, factor) {
 
-    settings.set('revenue', calcSales(sales, direction, delta));
+    const sharePrice = stats.get('sharePrice') * factor;
+
+    stats.set('sharePrice', sharePrice);
+
+    return sharePrice;
 }
 
-export default function (settings) {
+function updateSales(stats, salesDirection) {
+
+    const sales = stats.get('revenue');
+
+    const direction = salesDirection || calcDirection();
+
+    const delta = calcRandomDelta(sales, 0.3);
+
+    stats.set('revenue', calcSales(sales, direction, delta));
+
+    return delta;
+}
+
+export default function (stats) {
     return {
         calcDirection,
+
         calcRandomDelta,
+
         calcSales,
-        getSettings () { return getSettings(settings); },
-        updateSales () { return updateSales(settings); },
+
+        getCompanyStats () { return getCompanyStats(stats); },
+
+        updateExpenses (factor) { return updateExpenses(stats, factor)},
+
+        updateSales () { return updateSales(stats); },
+
+        updatePricePerShare (factor) { return updatePricePerShare(stats, factor); },
     };
 }

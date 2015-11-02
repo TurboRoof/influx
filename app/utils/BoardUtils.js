@@ -1,22 +1,10 @@
 'use strict';
 
+/* global process */
+
 /***************
  * BOARD EVENTS
  ***************/
-
-/*
-[12X]
-changeSales()
- */
-/**
- * Change company's sales up or down by a percentage
- * @param Company
- */
-function changeSales(Company) {
-    console.log('changeSales');
-    Company.actions.updateSales();
-    console.log(Company.actions.getSettings());
-}
 
 /*
 [1X]
@@ -25,58 +13,97 @@ ipo()
 bankrupt()
  */
 function acquiHire(company, employee) {
-    // - sells shares and updates cash
-    // - boost share price by 10X
-    // - terminates game.
+    // TODO - sells shares and updates cash
+
+    // TODO - boost share price by 10X
+
+    // TODO - terminates game.
+
     console.log('acquiHire');
 
 }
-function ipo(company, employee) {
-    // - boost share price by 100X
-    // - sells shares and updates cash
-    // - terminates game
-    console.log('ipo');
-}
-function bankrupt(company, employee) {
-    // - share price = 0
-    // - terminates game
-    console.log('bankrupt');
-}
 
-/*
-[2X]
-vcFunding()
-bankLoan()
- */
-function vcFunding(company) {
-    // - increase share price
-    // - increase revenues
-    console.log('vcFunding');
-}
 function bankLoan(company) {
-    // - increase share price
-    // - increase expenses
+
+    company.updatePricePerShare(0.8);
+
+    company.updateExpenses(1.2);
+
     console.log('bankLoan');
 }
 
-/*
-[1X]
-promoted()
+function bankrupt(company, employee) {
+    // TODO - share price = 0
+
+    // TODO - terminates game
+
+    console.log('bankrupt');
+}
+
+/**
+ * [12X]
+ * changeSales()
+ * Change company's sales up or down by a percentage
+ * @param Company
  */
-function promoted(employee) {
-    // - increase income
-    // - increase iso
-    console.log('promoted');
+function changeSales(Company) {
+
+    const delta = Company.actions.updateSales();
+
+    console.log(`Sales changed ${delta}`);
+
+    console.log(Company.actions.getCompanyStats());
 }
 
 /*
 [1X]
 fired()
  */
-function fired(employee) {
-    // - cash out shares
-    // - terminate game
-    console.log('fired');
+function fired(company, employee) {
+
+    const iso = employee.actions.getISOAndReset();
+
+    const cash = company.settings.get('sharePrice') * iso;
+
+    employee.updateCash(cash);
+
+    // terminate game
+    console.log('You are fired. GAME OVER.');
+
+    process.exit(0);
+}
+
+function ipo(company, employee) {
+    // TODO - boost share price by 100X
+
+    // TODO - sells shares and updates cash
+
+    // TODO - terminates game
+
+    console.log('ipo');
+}
+
+/*
+ [3X]
+offerJob()
+ */
+function offerJob(company, employee) {
+    // TODO - prompt an offer
+    // TODO - if accepts, cash out stock and change settings
+    console.log('offerJob');
+}
+
+/*
+[2X]
+payCheck()
+ */
+function payCheck(Employee) {
+
+    console.log('payCheck');
+
+    Employee.actions.payCheck();
+
+    console.log(Employee.actions.getStats());
 }
 
 /*
@@ -86,39 +113,54 @@ splitStock()
 purchaseStock()
  */
 function payoutProfit(employee) {
-    // - increase cash
+    // TODO - increase cash
+
     console.log('payoutProfit');
 }
-function splitStock(company, employee) {
-    // - multiply total shares, iso and earned shares
-    // - divide share price
-    console.log('splitStock');
+
+/*
+[1X]
+promoted()
+ */
+function promoted(employee) {
+
+    employee.actions.givePayRaise(10000);
+
+    employee.actions.increaseISO(4000);
+
+    console.log('promoted');
 }
+
 function purchaseStock(employee) {
-    // - prompt max stock options to buy and price
-    // - increase earned stock options
-    // - decrease cash
+    // TODO - prompt max stock options to buy and price
+
+    // TODO - increase earned stock options
+
+    // TODO - decrease cash
+
     console.log('purchaseStock');
+}
+
+function splitStock(company, employee) {
+    // TODO - multiply total shares, iso and earned shares
+
+    // TODO - divide share price
+
+    console.log('splitStock');
 }
 
 /*
 [2X]
-payCheck()
+vcFunding()
+bankLoan()
  */
-function payCheck(Employee) {
-    console.log('payCheck');
-    Employee.actions.payCheck();
-    console.log(Employee.actions.getStats());
-}
+function vcFunding(company) {
 
-/*
- [3X]
-offerJob()
- */
-function offerJob(company, employee) {
-    // - prompt an offer
-    // - if accepts, cash out stock and change settings
-    console.log('offerJob');
+    company.updatePricePerShare(2);
+
+    company.updateSales();
+
+    console.log('vcFunding');
 }
 
 export default function (Company, Employee) {
