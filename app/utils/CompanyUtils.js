@@ -68,7 +68,7 @@ export default function (stats) {
 
         getCompanyStats () { return getCompanyStats(stats); },
 
-        updateExpenses (factor) { return updateExpenses(stats, factor)},
+        updateExpenses (factor) { return updateExpenses(stats, factor); },
 
         updateSales () { return updateSales(stats); },
 

@@ -78,7 +78,7 @@ export default function (account) {
 
         getStats () { return getStats(account); },
 
-        givePayRaise (delta) { return givePayRaise(account, delta) },
+        givePayRaise (delta) { return givePayRaise(account, delta); },
 
         increaseISO (delta) { return increaseISO(account, delta); },
 
