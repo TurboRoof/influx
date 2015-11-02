@@ -6,12 +6,8 @@
  * BOARD EVENTS
  ***************/
 
-/*
-[1X]
-acquiHire()
-ipo()
-bankrupt()
- */
+// [1X] acquiHire / ipo / bankrupt
+
 function acquiHire(company, employee) {
     // TODO - sells shares and updates cash
 
@@ -40,12 +36,7 @@ function bankrupt(company, employee) {
     console.log('bankrupt');
 }
 
-/**
- * [12X]
- * changeSales()
- * Change company's sales up or down by a percentage
- * @param Company
- */
+// [12X]
 function changeSales(Company) {
 
     const delta = Company.actions.updateSales();
@@ -55,10 +46,7 @@ function changeSales(Company) {
     console.log(Company.actions.getCompanyStats());
 }
 
-/*
-[1X]
-fired()
- */
+// [1X]
 function fired(company, employee) {
 
     const iso = employee.actions.getISOAndReset();
@@ -83,20 +71,14 @@ function ipo(company, employee) {
     console.log('ipo');
 }
 
-/*
- [3X]
-offerJob()
- */
+// [3X]
 function offerJob(company, employee) {
     // TODO - prompt an offer
     // TODO - if accepts, cash out stock and change settings
     console.log('offerJob');
 }
 
-/*
-[2X]
-payCheck()
- */
+// [2X]
 function payCheck(Employee) {
 
     console.log('payCheck');
