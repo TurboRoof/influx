@@ -14,21 +14,28 @@ import EmployeeFactory from './factories/EmployeeFactory';
 import GameFactory from './factories/GameFactory';
 import GameStatus from './constants/GameStatus';
 
+const cli = readLine.createInterface(process.stdin, process.stdout);
+
+console.log(Contents.startingMessage);
+
 // Initialize
 const Company = CompanyFactory(6e6, .2, 4, 30e6, 25e6);
 const Employee = EmployeeFactory(5e3, 1e3, 1, 4, 10, 60e3, 0);
 const Board = BoardFactory(Company, Employee, 24);
 const Game = GameFactory(Board, Company, Employee);
 
-const rl = readLine.createInterface(process.stdin, process.stdout);
+function terminateGame () {
 
-console.log(Contents.startingMessage);
+    console.log(Contents.exitMessage);
 
-rl.setPrompt('start> ');
+    process.exit(0);
+}
 
-rl.prompt();
+cli.setPrompt('start> ');
 
-rl.on('line', function(line) {
+cli.prompt();
+
+cli.on('line', function(line) {
     switch(line.trim()) {
         case 'exit':
 
@@ -55,7 +62,7 @@ rl.on('line', function(line) {
               Board.actions[newIndex]
             )();
 
-            rl.setPrompt(prompt);
+            cli.setPrompt(prompt);
 
             break;
 
@@ -72,11 +79,8 @@ rl.on('line', function(line) {
             break;
     }
 
-    rl.prompt();
+    cli.prompt();
 
 }).on('close', function() {
-
-    console.log(Contents.exitMessage);
-
-    process.exit(0);
+    terminateGame();
 });
