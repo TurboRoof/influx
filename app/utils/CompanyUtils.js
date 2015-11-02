@@ -1,5 +1,21 @@
 'use strict';
 
+function calcDirection() {
+    return Math.random() > 0.5 ? 1 : -1;
+}
+
+function calcRandomDelta(sales, max) {
+
+    const maxSales = sales * max;
+
+    return Math.floor(maxSales * Math.random());
+}
+
+function calcSales(sales, direction, delta) {
+
+    return sales + (direction * delta);
+}
+
 function getCompanyStats(stats) {
 
     let report = '';
@@ -13,27 +29,11 @@ function getCompanyStats(stats) {
     return report;
 }
 
-function calcSales(sales, direction, delta) {
-
-    return sales + (direction * delta);
-}
-
-function calcDirection() {
-    return Math.random() > 0.5 ? 1 : -1;
-}
-
 function updateExpenses(stats, factor) {
 
-    const expenses = stats.get('expenses') + factor;
+    const expenses = stats.get('expenses') * factor;
 
     stats.set('expenses', expenses);
-}
-
-function calcRandomDelta(sales, max) {
-
-    const maxSales = sales * max;
-
-    return Math.floor(maxSales * Math.random());
 }
 
 function updatePricePerShare(stats, factor) {

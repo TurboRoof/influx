@@ -20,7 +20,7 @@ console.log(Contents.startingMessage);
 
 // Initialize
 const Company = CompanyFactory(6e6, .2, 4, 30e6, 25e6);
-const Employee = EmployeeFactory(5e3, 1e3, 1, 4, 10, 60e3, 0);
+const Employee = EmployeeFactory(5e3, 1e3, 1, 4, 10, 60e3, 1000);
 const Board = BoardFactory(Company, Employee, 24);
 const Game = GameFactory(Board, Company, Employee);
 
@@ -36,12 +36,24 @@ cli.setPrompt('start> ');
 cli.prompt();
 
 cli.on('line', function(line) {
+
     switch(line.trim()) {
+
+        case 'buy':
+            Board.actions.purchaseStock();
+            break;
+
+        case 'cStats':
+            console.log(Company.actions.getCompanyStats());
+            break;
+
+        case 'eStats':
+            console.log(Employee.actions.getStats());
+            break;
+
         case 'exit':
 
-            console.log(Contents.exitMessage);
-
-            process.exit(0);
+            terminateGame();
             break;
 
         case 'menu':
@@ -55,7 +67,7 @@ cli.on('line', function(line) {
 
             console.log(`Rolled ${diceNum}`);
 
-            console.log(`Index ${newIndex} out of 24`);
+            console.log(`Index ${newIndex} out of 24\n\n`);
 
             // pick card from stack and run it.
             Game.utils.pickCardFromStack(
@@ -64,14 +76,6 @@ cli.on('line', function(line) {
 
             cli.setPrompt(prompt);
 
-            break;
-
-        case 'cStats':
-            console.log(Company.actions.getCompanyStats());
-            break;
-
-        case 'eStats':
-            console.log(Employee.actions.getStats());
             break;
 
         default:

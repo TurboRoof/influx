@@ -1,12 +1,9 @@
-'use strict';
 
 /* global process */
 
 /***************
  * BOARD EVENTS
  ***************/
-
-// [1X] acquiHire / ipo / bankrupt
 
 function acquiHire(company, employee) {
     // TODO - sells shares and updates cash
@@ -21,9 +18,9 @@ function acquiHire(company, employee) {
 
 function bankLoan(company) {
 
-    company.updatePricePerShare(0.8);
+    company.actions.updatePricePerShare(0.8);
 
-    company.updateExpenses(1.2);
+    company.actions.updateExpenses(1.2);
 
     console.log('bankLoan');
 }
@@ -36,7 +33,6 @@ function bankrupt(company, employee) {
     console.log('bankrupt');
 }
 
-// [12X]
 function changeSales(Company) {
 
     const delta = Company.actions.updateSales();
@@ -46,17 +42,16 @@ function changeSales(Company) {
     console.log(Company.actions.getCompanyStats());
 }
 
-// [1X]
 function fired(company, employee) {
 
     const iso = employee.actions.getISOAndReset();
 
     const cash = company.settings.get('sharePrice') * iso;
 
-    employee.updateCash(cash);
+    employee.actions.updateCash(cash);
 
     // terminate game
-    console.log('You are fired. GAME OVER.');
+    console.log('\nYou are fired. GAME OVER.');
 
     process.exit(0);
 }
@@ -71,14 +66,13 @@ function ipo(company, employee) {
     console.log('ipo');
 }
 
-// [3X]
 function offerJob(company, employee) {
     // TODO - prompt an offer
+
     // TODO - if accepts, cash out stock and change settings
     console.log('offerJob');
 }
 
-// [2X]
 function payCheck(Employee) {
 
     console.log('payCheck');
@@ -88,22 +82,12 @@ function payCheck(Employee) {
     console.log(Employee.actions.getStats());
 }
 
-/*
-[2X]
-payoutProfit()
-splitStock()
-purchaseStock()
- */
 function payoutProfit(employee) {
     // TODO - increase cash
 
     console.log('payoutProfit');
 }
 
-/*
-[1X]
-promoted()
- */
 function promoted(employee) {
 
     employee.actions.givePayRaise(10000);
@@ -113,64 +97,92 @@ function promoted(employee) {
     console.log('promoted');
 }
 
-function purchaseStock(employee) {
-    // TODO - prompt max stock options to buy and price
+function purchaseStock(company, employee, optionsToPurchase) {
+    if (optionsToPurchase) {
+
+    }
+
+    const pricePerShare = company.settings.get('sharePrice');
+
+    const maxOptions = 3000;
+
+    console.log(
+`
+*********** STOCK OPTION PURCHASE WINDOW ************
+
+    Do you want to purchase stock?
+    Max options: ${maxOptions}
+    Price per share $${pricePerShare}
+
+    To buy type 'buy' and the amount of shares.
+
+*****************************************************`
+    );
 
     // TODO - increase earned stock options
 
     // TODO - decrease cash
-
-    console.log('purchaseStock');
+    return;
 }
 
 function splitStock(company, employee) {
-    // TODO - multiply total shares, iso and earned shares
 
-    // TODO - divide share price
+    const sharePrice = company.settings.get('sharePrice') / 2;
 
-    console.log('splitStock');
+    const totalShares = company.settings.get('totalShares') * 2;
+
+    company.settings.set('sharePrice', sharePrice);
+
+    company.settings.set('totalShares', totalShares);
+
+    const earned = employee.account.get('earnedStockOptions') * 2;
+
+    employee.account.set('earnedStockOptions', earned);
+
+    console.log(`
+    Company splits stock to ${sharePrice}.
+    Total shares ${totalShares}
+    `);
 }
 
-/*
-[2X]
-vcFunding()
-bankLoan()
- */
 function vcFunding(company) {
 
-    company.updatePricePerShare(2);
+    company.actions.updatePricePerShare(2);
 
-    company.updateSales();
+    company.actions.updateSales();
 
     console.log('vcFunding');
 }
 
 export default function (Company, Employee) {
     return {
-        changeSales () { return changeSales(Company); },
-
         acquiHire () { return acquiHire(Company, Employee); },
-
-        ipo() { return ipo(Company, Employee); },
-
-        bankrupt() { return bankrupt(Company, Employee); },
-
-        vcFunding() { return vcFunding(Company); },
 
         bankLoan() { return bankLoan(Company); },
 
-        promoted() { return promoted(Employee); },
+        bankrupt() { return bankrupt(Company, Employee); },
 
-        fired() { return fired(Employee); },
+        changeSales () { return changeSales(Company); },
 
-        payoutProfit() { return payoutProfit(Employee); },
+        fired() { return fired(Company, Employee); },
 
-        splitStock() { return splitStock(Company, Employee); },
+        ipo() { return ipo(Company, Employee); },
 
-        purchaseStock() { return purchaseStock(Employee); },
+        offerJob() { return offerJob(Company, Employee); },
 
         payCheck() { return payCheck(Employee); },
 
-        offerJob() { return offerJob(Company, Employee); },
+        payoutProfit() { return payoutProfit(Employee); },
+
+        promoted() { return promoted(Employee); },
+
+        purchaseStock(optionsToPurchase) {
+            return purchaseStock(Company, Employee, optionsToPurchase);
+        },
+
+        splitStock() { return splitStock(Company, Employee); },
+
+        vcFunding() { return vcFunding(Company); },
+
     };
 }

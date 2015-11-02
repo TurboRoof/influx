@@ -10,8 +10,8 @@ function calculateNewSlot(slots, activeSlot, diceNum) {
 
     if (addition >= slots) {
         return {
-            newIndex: addition - slots,
             isNewMonth: true,
+            newIndex: addition - slots,
         };
     }
 
