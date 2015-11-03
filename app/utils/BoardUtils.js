@@ -26,11 +26,27 @@ function bankLoan(company) {
 }
 
 function bankrupt(company, employee) {
-    // TODO - share price = 0
 
-    // TODO - terminates game
+    console.log('\n Company is bankrupt. You lost all your shares.');
 
-    console.log('bankrupt');
+    company.settings.set('sharePrice', 0);
+    company.settings.set('totalShares', 0);
+    company.settings.set('employeePool', 0);
+    company.settings.set('revenue', 0);
+    company.settings.set('expenses', 0);
+
+    employee.account.set('earnedStockOptions', 0);
+    employee.account.set('income', 0);
+    employee.account.set('vesting', 0);
+    employee.account.set('cliff', 0);
+    employee.account.set('iso', 0);
+    employee.account.set('expiration', 0);
+
+    // terminate game
+    console.log(Employee.actions.getStats());
+    console.log(Company.actions.getCompanyStats());
+
+    process.exit(0);
 }
 
 function changeSales(Company) {
