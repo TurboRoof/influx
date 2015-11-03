@@ -17,7 +17,7 @@ function acquiHire(company, employee) {
 
     cStats.set('sharePrice', sharePrice);
 
-    eStats.set('earnedStockOptions', eStats.get('iso'));
+    eStats.set('earnedStockOptions', 0);
     eStats.set('vesting', 0);
     eStats.set('cliff', 0);
     eStats.set('expiration', 0);
@@ -90,13 +90,31 @@ function fired(company, employee) {
 }
 
 function ipo(company, employee) {
-    // TODO - boost share price by 100X
 
-    // TODO - sells shares and updates cash
+    const cStats = company.settings;
 
-    // TODO - terminates game
+    const eStats = employee.account;
 
-    console.log('ipo');
+    console.log('\n Company IPO, Congratulations!');
+
+    const sharePrice = cStats.get('sharePrice') * 100;
+
+    cStats.set('sharePrice', sharePrice);
+
+    eStats.set('earnedStockOptions', 0);
+    eStats.set('vesting', 0);
+    eStats.set('cliff', 0);
+    eStats.set('expiration', 0);
+    eStats.set('cash', eStats.get('cash') + eStats.get('iso') * sharePrice);
+
+    // terminate game
+    console.log(Employee.actions.getStats());
+    console.log(Company.actions.getCompanyStats());
+
+    console.log('\n Thanks for playing.');
+
+    process.exit(0);
+
 }
 
 function offerJob(company, employee) {
