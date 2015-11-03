@@ -98,11 +98,30 @@ function promoted(employee) {
 }
 
 function purchaseStock(company, employee, optionsToPurchase) {
-    if (optionsToPurchase) {
-
-    }
 
     const pricePerShare = company.settings.get('sharePrice');
+
+    if (optionsToPurchase) {
+
+        const cash =  employee.account.get('cash');
+
+        const cashLeft = cash - (optionsToPurchase * pricePerShare);
+
+        if (cashLeft < 0) {
+            console.log('Stock Options purchase canceled. Not enough cash');
+
+            return;
+        }
+
+        employee.account.set('cash', cashLeft);
+
+        const vestedShares =
+            employee.account.get('earnedStockOptions') + optionsToPurchase;
+
+        employee.account.set('earnedStockOptions', vestedShares);
+
+        return;
+    }
 
     const maxOptions = 3000;
 
@@ -114,15 +133,11 @@ function purchaseStock(company, employee, optionsToPurchase) {
     Max options: ${maxOptions}
     Price per share $${pricePerShare}
 
-    To buy type 'buy' and the amount of shares.
+    To buy type 'buy 1000' and the amount of shares.
 
 *****************************************************`
     );
 
-    // TODO - increase earned stock options
-
-    // TODO - decrease cash
-    return;
 }
 
 function splitStock(company, employee) {

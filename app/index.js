@@ -39,7 +39,7 @@ cli.on('line', function(line) {
 
     switch(line.trim()) {
 
-        case 'buy':
+        case 'buy 1000':
             Board.actions.purchaseStock();
             break;
 
