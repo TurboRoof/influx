@@ -6,13 +6,30 @@
  ***************/
 
 function acquiHire(company, employee) {
-    // TODO - sells shares and updates cash
 
-    // TODO - boost share price by 10X
+    const cStats = company.settings;
 
-    // TODO - terminates game.
+    const eStats = employee.account;
 
-    console.log('acquiHire');
+    console.log('\n Company got acquired, Congratulations!');
+
+    const sharePrice = cStats.get('sharePrice') * 10;
+
+    cStats.set('sharePrice', sharePrice);
+
+    eStats.set('earnedStockOptions', eStats.get('iso'));
+    eStats.set('vesting', 0);
+    eStats.set('cliff', 0);
+    eStats.set('expiration', 0);
+    eStats.set('cash', eStats.get('cash') + eStats.get('iso') * sharePrice);
+
+    // terminate game
+    console.log(Employee.actions.getStats());
+    console.log(Company.actions.getCompanyStats());
+
+    console.log('\n Thanks for playing.');
+
+    process.exit(0);
 
 }
 
