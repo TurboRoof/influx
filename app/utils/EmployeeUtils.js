@@ -155,6 +155,6 @@ export default function (account) {
 
         updateCash (delta) { return updateCash(account, delta); },
 
-        vestOptions (month) { return vestOptions(account, month); }
+        vestOptions (month) { return vestOptions(account, month); },
     };
 }
