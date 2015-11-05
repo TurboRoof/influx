@@ -31,14 +31,16 @@ function getCompanyStats(stats) {
 
 function updateExpenses(stats, factor) {
 
-    const expenses = stats.get('expenses') * factor;
+    const expenses =
+        Math.round( stats.get('expenses') * factor );
 
     stats.set('expenses', expenses);
 }
 
 function updatePricePerShare(stats, factor) {
 
-    const sharePrice = stats.get('sharePrice') * factor;
+    const sharePrice =
+        Math.round( stats.get('sharePrice') * factor );
 
     stats.set('sharePrice', sharePrice);
 

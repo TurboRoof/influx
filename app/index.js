@@ -75,7 +75,12 @@ cli.on('line', function(line) {
 
         case 'roll':
 
-            const {prompt, diceNum, newIndex} = Game.utils.moveDate();
+            const {diceNum, month, newIndex, prevSlot, prompt }
+                = Game.utils.moveDate();
+
+            Employee.actions.cronPayCheck(prevSlot, newIndex);
+
+            Employee.actions.vestOptions(month);
 
             console.log(`Rolled ${diceNum}`);
 
