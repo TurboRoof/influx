@@ -4,15 +4,18 @@
 export const Contents = {
     commandNotFound: 'Command not found. Try menu for help.',
     exitMessage: 'Thanks for playing. Have a great day!',
-    startingMessage: 'Starting ISO Game...',
+    startingMessage: `Welcome to INFLUX Incentive Stock Options Game
+    Type 'roll' to play.
+    Type 'menu' to see more options.
+    -------------------------------`,
 };
 
 export const Menu = `
 MENU for ISO Game
 =================
 roll - roll dice
-stats - to view your cash
-settings - to view settings
+eStats - to view your cash
+cStats - to view settings
 exit - to end the game
 `;
 
