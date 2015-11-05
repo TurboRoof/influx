@@ -117,11 +117,50 @@ function ipo(company, employee) {
 
 }
 
-function offerJob(company, employee) {
-    // TODO - prompt an offer
+function offerJob(company, employee, isOfferAccepted) {
 
     // TODO - if accepts, cash out stock and change settings
-    console.log('offerJob');
+
+    if (isOfferAccepted) {
+
+        console.log('Offer accepted.');
+
+        const pricePerShare = company.settings.get('sharePrice');
+
+        const options =  employee.account.get('earnedStockOptions');
+
+        let cash =  employee.account.get('cash');
+
+        cash += (options * pricePerShare);
+
+        employee.account.set('cash', cash);
+        employee.account.set('earnedStockOptions', 0);
+
+        // terminate game
+        console.log(Employee.actions.getStats());
+        console.log(Company.actions.getCompanyStats());
+
+        console.log('\n Thanks for playing.');
+
+        process.exit(0);
+
+        return;
+    }
+
+    console.log(
+`
+*********** YOU GOT A JOB OFFER ************
+
+    Company X wants to hire you.
+    They offer 20,000 shares ISO.
+    Salary $70,000
+
+    Do you want to accept the offer?
+    Type "accept offer" or "reject offer".
+
+********************************************`
+    );
+
 }
 
 function payCheck(Employee) {

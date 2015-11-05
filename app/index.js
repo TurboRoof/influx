@@ -39,6 +39,14 @@ cli.on('line', function(line) {
 
     switch(line.trim()) {
 
+        case 'accept offer':
+            Board.actions.offerJob(true);
+            break;
+
+        case 'reject offer':
+            Board.actions.offerJob(false);
+            break;
+
         case 'buy 1000':
             Board.actions.purchaseStock();
             break;
