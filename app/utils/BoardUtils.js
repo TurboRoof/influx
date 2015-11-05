@@ -24,8 +24,8 @@ function acquiHire(company, employee) {
     eStats.set('cash', eStats.get('cash') + eStats.get('iso') * sharePrice);
 
     // terminate game
-    console.log(Employee.actions.getStats());
-    console.log(Company.actions.getCompanyStats());
+    console.log(employee.actions.getStats());
+    console.log(company.actions.getCompanyStats());
 
     console.log('\n Thanks for playing.');
 
@@ -60,8 +60,8 @@ function bankrupt(company, employee) {
     employee.account.set('expiration', 0);
 
     // terminate game
-    console.log(Employee.actions.getStats());
-    console.log(Company.actions.getCompanyStats());
+    console.log(employee.actions.getStats());
+    console.log(company.actions.getCompanyStats());
 
     process.exit(0);
 }
@@ -82,6 +82,9 @@ function fired(company, employee) {
     const cash = company.settings.get('sharePrice') * iso;
 
     employee.actions.updateCash(cash);
+
+    console.log(employee.actions.getStats());
+    console.log(company.actions.getCompanyStats());
 
     // terminate game
     console.log('\nYou are fired. GAME OVER.');
@@ -108,8 +111,8 @@ function ipo(company, employee) {
     eStats.set('cash', eStats.get('cash') + eStats.get('iso') * sharePrice);
 
     // terminate game
-    console.log(Employee.actions.getStats());
-    console.log(Company.actions.getCompanyStats());
+    console.log(employee.actions.getStats());
+    console.log(company.actions.getCompanyStats());
 
     console.log('\n Thanks for playing.');
 
@@ -118,8 +121,6 @@ function ipo(company, employee) {
 }
 
 function offerJob(company, employee, isOfferAccepted) {
-
-    // TODO - if accepts, cash out stock and change settings
 
     if (isOfferAccepted) {
 
@@ -137,12 +138,18 @@ function offerJob(company, employee, isOfferAccepted) {
         employee.account.set('earnedStockOptions', 0);
 
         // terminate game
-        console.log(Employee.actions.getStats());
-        console.log(Company.actions.getCompanyStats());
+        console.log(employee.actions.getStats());
+        console.log(company.actions.getCompanyStats());
 
         console.log('\n Thanks for playing.');
 
         process.exit(0);
+
+        return;
+
+    } else if (isOfferAccepted === false) {
+
+        console.log('Offer rejected.');
 
         return;
     }
@@ -172,9 +179,7 @@ function payCheck(Employee) {
     console.log(Employee.actions.getStats());
 }
 
-function payoutProfit(employee) {
-    // TODO - increase cash
-
+function payoutProfit() {
     console.log('payoutProfit');
 }
 
@@ -185,6 +190,8 @@ function promoted(employee) {
     employee.actions.increaseISO(4000);
 
     console.log('promoted');
+
+    console.log(employee.actions.getStats());
 }
 
 function purchaseStock(company, employee, optionsToPurchase) {
@@ -248,6 +255,8 @@ function splitStock(company, employee) {
     Company splits stock to ${sharePrice}.
     Total shares ${totalShares}
     `);
+
+    console.log(company.actions.getCompanyStats());
 }
 
 function vcFunding(company) {
@@ -257,6 +266,8 @@ function vcFunding(company) {
     company.actions.updateSales();
 
     console.log('vcFunding');
+
+    console.log(company.actions.getCompanyStats());
 }
 
 export default function (Company, Employee) {
@@ -273,7 +284,9 @@ export default function (Company, Employee) {
 
         ipo() { return ipo(Company, Employee); },
 
-        offerJob() { return offerJob(Company, Employee); },
+        offerJob(isOfferAccepted) {
+            return offerJob(Company, Employee, isOfferAccepted);
+        },
 
         payCheck() { return payCheck(Employee); },
 

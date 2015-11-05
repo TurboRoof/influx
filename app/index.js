@@ -20,7 +20,7 @@ console.log(Contents.startingMessage);
 
 // Initialize
 const Company = CompanyFactory(6e6, .2, 4, 30e6, 25e6);
-const Employee = EmployeeFactory(5e3, 1e3, 1, 4, 10, 60e3, 1000);
+const Employee = EmployeeFactory(5e3, 1e3, 1, 4, 10, 60e3, 0.2);
 const Board = BoardFactory(Company, Employee, 24);
 const Game = GameFactory(Board, Company, Employee);
 
@@ -31,6 +31,10 @@ function terminateGame () {
     process.exit(0);
 }
 
+console.log(Company.actions.getCompanyStats());
+
+console.log(Employee.actions.getStats());
+
 cli.setPrompt('start> ');
 
 cli.prompt();
@@ -40,15 +44,15 @@ cli.on('line', function(line) {
     switch(line.trim()) {
 
         case 'accept offer':
-            Board.actions.offerJob(true);
+            Board.actionCreators.offerJob(true);
             break;
 
         case 'reject offer':
-            Board.actions.offerJob(false);
+            Board.actionCreators.offerJob(false);
             break;
 
         case 'buy 1000':
-            Board.actions.purchaseStock();
+            Board.actionCreators.purchaseStock(1000);
             break;
 
         case 'cStats':

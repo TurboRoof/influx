@@ -47,6 +47,7 @@ export default function (Company, Employee, slots) {
     ]);
 
     return {
+        actionCreators: a,
         actions,
         board,
     };

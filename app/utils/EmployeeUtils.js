@@ -59,7 +59,10 @@ function payCheck(account) {
 
     const taxes = account.get('taxes');
 
-    account.set('cash', calcPayCheck(income, taxes));
+    const cash = account.get('cash') + calcPayCheck(income, taxes);
+
+    account.set('cash', cash);
+
 }
 
 function updateCash(account, delta) {
