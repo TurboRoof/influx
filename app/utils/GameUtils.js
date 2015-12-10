@@ -38,16 +38,20 @@ function moveDate(board) {
 
     board.set('activeSlot', newIndex);
 
-    const month = board.get('month');
+    const prevMonth = board.get('month');
+
+    const newMonth = prevMonth + 1;
 
     if (isNewMonth) {
-        board.set('month', month + 1);
+        board.set('month', newMonth);
     }
 
     return {
         diceNum,
         newIndex,
-        prompt: `slot: ${newIndex} / month: ${month}>`,
+        month: newMonth,
+        prompt: `slot: ${newIndex} / month: ${newMonth}>`,
+        prevSlot: activeSlot,
     };
 }
 
@@ -59,8 +63,8 @@ function pickCardFromStack(stack) {
 }
 
 // - random roll 1-max
-function rollDice(max = 6) {
-    return Math.ceil(Math.random() * max);
+function rollDice(max = 24) {
+    return Math.ceil(Math.random() * max) || 1;
 }
 
 export default function (Board, Company, Employee) {
